@@ -67,61 +67,61 @@
   	<url-pattern>/T06_ServletSessionTest</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-  	<servlet-name>T08_ServletContextListenerTest</servlet-name>
-  	<servlet-class>kr.or.ddit.basic.T08_ServletContextListenerTest</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>T08_ServletContextListenerTest</servlet-name>
-  	<url-pattern>/T08_ServletContextListenerTest</url-pattern>
-  </servlet-mapping>
+<!--   <servlet> -->
+<!--   	<servlet-name>T08_ServletContextListenerTest</servlet-name> -->
+<!--   	<servlet-class>kr.or.ddit.basic.T08_ServletContextListenerTest</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--   	<servlet-name>T08_ServletContextListenerTest</servlet-name> -->
+<!--   	<url-pattern>/T08_ServletContextListenerTest</url-pattern> -->
+<!--   </servlet-mapping> -->
   
-  <servlet>
-  	<servlet-name>T09_ServletRequestListenerTest</servlet-name>
-  	<servlet-class>kr.or.ddit.basic.T09_ServletRequestListenerTest</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>T09_ServletRequestListenerTest</servlet-name>
-  	<url-pattern>/T09_ServletRequestListenerTest</url-pattern>
-  </servlet-mapping>
+<!--   <servlet> -->
+<!--   	<servlet-name>T09_ServletRequestListenerTest</servlet-name> -->
+<!--   	<servlet-class>kr.or.ddit.basic.T09_ServletRequestListenerTest</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--   	<servlet-name>T09_ServletRequestListenerTest</servlet-name> -->
+<!--   	<url-pattern>/T09_ServletRequestListenerTest</url-pattern> -->
+<!--   </servlet-mapping> -->
   
-  <servlet>
-  	<servlet-name>T10_SessionListenerTest</servlet-name>
-  	<servlet-class>kr.or.ddit.basic.T10_SessionListenerTest</servlet-class>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>T10_SessionListenerTest</servlet-name>
-  	<url-pattern>/T10_SessionListenerTest</url-pattern>
-  </servlet-mapping>
-  
-  
-  <listener>
-  	<display-name>MyServletContextListener</display-name>
-  	<listener-class>kr.or.ddit.basic.MyServletContextListener</listener-class>
-  </listener>
-  
-  <listener>
-  	<display-name>MyServletRequestListener</display-name>
-  	<listener-class>kr.or.ddit.basic.MyServletRequestListener</listener-class>
-  </listener>
-  
-  <listener>
-  	<display-name>MySessionAttributeListener</display-name>
-  	<listener-class>kr.or.ddit.basic.MySessionAttributeListener</listener-class>
-  </listener>
+<!--   <servlet> -->
+<!--   	<servlet-name>T10_SessionListenerTest</servlet-name> -->
+<!--   	<servlet-class>kr.or.ddit.basic.T10_SessionListenerTest</servlet-class> -->
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--   	<servlet-name>T10_SessionListenerTest</servlet-name> -->
+<!--   	<url-pattern>/T10_SessionListenerTest</url-pattern> -->
+<!--   </servlet-mapping> -->
   
   
+<!--   <listener> -->
+<!--   	<display-name>MyServletContextListener</display-name> -->
+<!--   	<listener-class>kr.or.ddit.basic.MyServletContextListener</listener-class> -->
+<!--   </listener> -->
   
-  <filter>
-  	<filter-name>CustomEncoding</filter-name>
-  	<filter-class>kr.or.ddit.filter.CustomEncoding</filter-class>
-  </filter>
-  <filter-mapping>
-  	<filter-name>CustomEncoding</filter-name>
-  	<url-pattern>/*</url-pattern>
-  </filter-mapping>
+<!--   <listener> -->
+<!--   	<display-name>MyServletRequestListener</display-name> -->
+<!--   	<listener-class>kr.or.ddit.basic.MyServletRequestListener</listener-class> -->
+<!--   </listener> -->
   
- <!--  
+<!--   <listener> -->
+<!--   	<display-name>MySessionAttributeListener</display-name> -->
+<!--   	<listener-class>kr.or.ddit.basic.MySessionAttributeListener</listener-class> -->
+<!--   </listener> -->
+  
+  
+  
+<!--   <filter> -->
+<!--   	<filter-name>CustomEncoding</filter-name> -->
+<!--   	<filter-class>kr.or.ddit.filter.CustomEncoding</filter-class> -->
+<!--   </filter> -->
+<!--   <filter-mapping> -->
+<!--   	<filter-name>CustomEncoding</filter-name> -->
+<!--   	<url-pattern>/*</url-pattern> -->
+<!--   </filter-mapping> -->
+  
+ 
   <filter>
   	<filter-name>T07_ServletFilter</filter-name>
   	<filter-class>kr.or.ddit.basic.T07_ServletFilter</filter-class>
@@ -145,7 +145,7 @@
   	<filter-name>T07_ServletFilter2</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
-  -->
+  
   
   
   
