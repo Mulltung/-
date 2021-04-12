@@ -1,5 +1,6 @@
 package kr.or.ddit.member.service;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +12,10 @@ import kr.or.ddit.member.dao.MemberDaoImpl;
 import kr.or.ddit.member.vo.MemberVO;
 import kr.or.ddit.util.SqlMapClientUtil;
 
-
 public class MemberServiceImpl implements IMemberService {
 	
-//	사용할 DAO의 객체 변수를 선언한다.
-//	나중에 implements된 다른 메서드로 편하게 바꾸기 위해 인터페이스 객체 생성함(다형성)
+	// 사용할 DAO의 객체변수를 선언한다.
 	private IMemberDao memDao;
-//	커넥션 객체 담기위한 메서드 객체 선언
 	private SqlMapClient smc;
 	
 	private static IMemberService service;
@@ -28,22 +26,24 @@ public class MemberServiceImpl implements IMemberService {
 	}
 	
 	public static IMemberService getInstance() {
-		if(service  == null) {
-			service  = new MemberServiceImpl();
+		if(service == null) {
+			service = new MemberServiceImpl();
 		}
-		return service ;
+		
+		return service;
 	}
 
 	@Override
 	public int insertMember(MemberVO mv) {
+		
 		int cnt = 0;
 		
 		try {
-			cnt = memDao.insertMember(smc, mv);;
+			cnt = memDao.insertMember(smc, mv);
 		} catch (SQLException e) {
-
 			e.printStackTrace();
-		} 
+		}
+		
 		return cnt;
 	}
 
@@ -53,10 +53,11 @@ public class MemberServiceImpl implements IMemberService {
 		boolean chk = false;
 		
 		try {
-			chk =memDao.checkMember(smc, memId);
+			chk = memDao.checkMember(smc, memId);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		
 		return chk;
 	}
 
@@ -64,11 +65,13 @@ public class MemberServiceImpl implements IMemberService {
 	public List<MemberVO> getAllMemberList() {
 		
 		List<MemberVO> memList = new ArrayList<>();
+		
 		try {
 			memList = memDao.getAllMemberList(smc);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
+		
 		return memList;
 	}
 
@@ -80,7 +83,8 @@ public class MemberServiceImpl implements IMemberService {
 			cnt = memDao.updateMember(smc, mv);
 		} catch (SQLException e) {
 			e.printStackTrace();
-		} 
+		}
+		
 		return cnt;
 	}
 
@@ -96,18 +100,33 @@ public class MemberServiceImpl implements IMemberService {
 		
 		return cnt;
 	}
-
+	
 	@Override
 	public List<MemberVO> getSearchMember(MemberVO mv) {
+		
 		List<MemberVO> memList = new ArrayList<>();
 		
 		try {
 			memList = memDao.getSearchMember(smc, mv);
+			
 		}catch(SQLException ex) {
 			ex.printStackTrace();
 		}
+		
 		return memList;
 	}
-	
-	
+
+	@Override
+	public MemberVO getMember(String memId) {
+		
+		MemberVO mv = null;
+		
+		try {
+			mv = memDao.getMember(smc, memId);
+		}catch(SQLException ex) {
+			ex.printStackTrace();
+		}
+		return mv;
+	}
+
 }

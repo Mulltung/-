@@ -1,13 +1,15 @@
 package kr.or.ddit.member.vo;
 
-/*
- *  DB 테이블에 있는 컬럼을 기준으로 데이터를 객체화한 클래스이다.
- *  <p>
- *  DB테이블의 '컬럼'이 이 클래스의 '멤버변수'가 된다. <br>
- *  DB테이블의 컬럼과 클래스의 멤버변수를 매핑하는 역할을 수행한다. <br>
- *  </p>
+/**
+ * DB 테이블에 있는 컬럼을 기준으로 데이터를 객체화한 클래스이다.
+ * @author SEM-pc
+ * <p>
+ * DB테이블의 '컬럼'이 이 클래스의 '멤버변수'가 된다 <br>
+ * DB테이블의 컬럼과 클래스의 멤버변수를 매핑하는 역할을 수행한다.<br>
+ * </p>
  */
 public class MemberVO {
+	
 	private String memId;
 	private String memName;
 	private String memTel;
@@ -43,4 +45,6 @@ public class MemberVO {
 		return "MemberVO [memId=" + memId + ", memName=" + memName + ", memTel=" + memTel + ", memAddr=" + memAddr
 				+ "]";
 	}
+	
+	
 }

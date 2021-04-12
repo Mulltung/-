@@ -1,5 +1,6 @@
 package kr.or.ddit.member;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +11,7 @@ import java.util.Scanner;
 import kr.or.ddit.member.service.IMemberService;
 import kr.or.ddit.member.service.MemberServiceImpl;
 import kr.or.ddit.member.vo.MemberVO;
-
+import oracle.net.aso.p;
 
 /*
 	회원정보를 관리하는 프로그램을 작성하는데 
@@ -89,7 +90,7 @@ public class MemberMain {
 				case 4 :  // 전체 자료 출력
 					displayAll();
 					break;
-				case 5 :  // 자료검색
+				case 5 :  // 자료 검색
 					searchMember();
 					break;
 				case 6 :  // 작업 끝
@@ -101,9 +102,7 @@ public class MemberMain {
 		}while(choice!=6);
 	}
 	
-	
-	
-	/*
+	/**
 	 * 회원정보를 검색하는 메서드
 	 */
 	private void searchMember() {
@@ -115,16 +114,16 @@ public class MemberMain {
 		System.out.println();
 		System.out.println("검색할 정보를 입력하세요.");
 		System.out.print("회원ID >> ");
-		String memId = scan.nextLine().trim(); //공백제거
+		String memId = scan.nextLine().trim();
 		
 		System.out.print("회원 이름 >> ");
-		String memName = scan.nextLine().trim(); //공백제거
+		String memName = scan.nextLine().trim();
 		
 		System.out.print("회원 전화번호 >> ");
-		String memTel = scan.nextLine().trim(); //공백제거
+		String memTel = scan.nextLine().trim();
 		
 		System.out.print("회원 주소 >> ");
-		String memAddr = scan.nextLine().trim(); //공백제거
+		String memAddr = scan.nextLine().trim();
 		
 		MemberVO mv = new MemberVO();
 		mv.setMemId(memId);
@@ -133,48 +132,46 @@ public class MemberMain {
 		mv.setMemAddr(memAddr);
 		
 		// 입력한 정보로 검색한 내용을 출력하는 부분
-		List<MemberVO> memList = memService.getSearchMember (mv);
-				
-				System.out.println();
-		System.out.println("----------------------------------------");
-		System.out.println(" ID\t이 름\t전화번호\t주 소");
-		System.out.println("----------------------------------------");
-				
-		for(MemberVO mv2: memList) {
-			System.out.println(mv2.getMemId() + "\t" + mv2.getMemName() + "\t" 
-							 + mv2.getMemTel() + "\t" + mv2.getMemAddr());		
+		List<MemberVO> memList = memService.getSearchMember(mv);
+		
+		System.out.println();
+		System.out.println("---------------------------------------");
+		System.out.println(" ID\t이 름\t전화번호\t주  소");
+		System.out.println("---------------------------------------");
+		
+		for(MemberVO mv2 : memList) {
+			System.out.println(mv2.getMemId()
+					+"\t" + mv2.getMemName()
+					+"\t" + mv2.getMemTel()
+					+"\t" + mv2.getMemAddr());
 		}
-		System.out.println("---------------------------------------------------");
-		System.out.println("출력 작업 끝!");
+		
+		System.out.println("---------------------------------------");
+		System.out.println("출력 작업 끝...");
+		
 	}
-	
-	
 
-	
-	
-	
-	/*
-	 * 회원정보를 삭제하는 메서드 (입력받은 회원ID를 이용하여 삭제한다.)
+	/**
+	 * 회원정보를 삭제하는 메서드(입력받은 회원ID를 이용하여 삭제한다.)
 	 */
 	private void deleteMember() {
+		
 		System.out.println();
 		System.out.println("삭제할 회원 ID를 입력하세요.");
-		System.out.print("회원 ID >> ");
+		System.out.print("회원ID >> ");
 		String memId = scan.next();
 		
 		int cnt = memService.deleteMember(memId);
-	
+		
 		if(cnt > 0) {
 			System.out.println(memId + "회원정보 삭제 작업 성공");
 		}else {
-			System.out.println(memId + "회원정보 삭제 작업 실패");
+			System.out.println(memId + "회원정보 삭제 작업 실패!!!");
 		}
+		
 	}
-	
-	
-	
 
-	/*
+	/**
 	 * 회원정보를 수정하는 메서드
 	 */
 	private void updateMember() {
@@ -188,22 +185,23 @@ public class MemberMain {
 			System.out.print("회원 ID >> ");
 			memId = scan.next();
 			
-			chk = memService.checkMember(memId);
+			chk =  memService.checkMember(memId);
 			
 			if(chk == false) {
-				System.out.println("회원ID가" + memId + "인 회원이 없습니다.");
+				System.out.println("회원ID가 " + memId + "인 회원이 없습니다.");
 				System.out.println("다시 입력해 주세요.");
 			}
+			
 		}while(chk == false);
 		
-		System.out.print("회원 이름 >>");
+		System.out.print("회원 이름 >> ");
 		String memName = scan.next();
 		
-		System.out.print("회원 전화번호 >>");
+		System.out.print("회원 전화번호 >> ");
 		String memTel = scan.next();
 		
-		scan.nextLine(); //입력버퍼 비우기
-		System.out.print("회원 주소 >>");
+		scan.nextLine(); // 입력버퍼 비우기
+		System.out.print("회원 주소 >> ");
 		String memAddr = scan.nextLine();
 		
 		MemberVO mv = new MemberVO();
@@ -212,43 +210,38 @@ public class MemberMain {
 		mv.setMemTel(memTel);
 		mv.setMemAddr(memAddr);
 		
-
 		int cnt = memService.updateMember(mv);
-			
+		
 		if(cnt > 0) {
 			System.out.println(memId + "회원정보 수정 작업 성공");
 		}else {
-			System.out.println(memId + "회원정보 수정 작업 실패");
+			System.out.println(memId + "회원정보 수정 작업 실패!!!");
 		}
-	}		
-	
-	
-	
-	
+	}
 
-	/*
+	/**
 	 * 전체 회원을 출력하는 메서드
 	 */
 	private void displayAll() {
 		System.out.println();
-		System.out.println("----------------------------------------");
-		System.out.println(" ID\t이 름\t전화번호\t주 소");
-		System.out.println("----------------------------------------");
+		System.out.println("---------------------------------------");
+		System.out.println(" ID\t이 름\t전화번호\t주  소");
+		System.out.println("---------------------------------------");
+		
 		
 		List<MemberVO> memList = memService.getAllMemberList();
 		
-		for(MemberVO mv: memList) {
-			System.out.println(mv.getMemId() + "\t" + mv.getMemName() + "\t" 
-							 + mv.getMemTel() + "\t" + mv.getMemAddr());		
+		for(MemberVO mv : memList) {
+			System.out.println(mv.getMemId() 
+					+ "\t" + mv.getMemName() + "\t"
+					+ mv.getMemTel() + "\t" + mv.getMemAddr());
 		}
-	}
-			
 		
-	
-	
-	
+		System.out.println("---------------------------------------");
+		System.out.println("출력 작업 끝...");
+	}
 
-	/*
+	/**
 	 * 회원을 추가하기 위한 메서드
 	 */
 	private void insertMember() {
@@ -265,19 +258,19 @@ public class MemberMain {
 			chk = memService.checkMember(memId);
 			
 			if(chk == true) {
-				System.out.println("회원ID가" + memId + "인 회원이 이미 존재합니다.");
+				System.out.println("회원ID가 " + memId + "인 회원이 이미 존재합니다.");
 				System.out.println("다시 입력해 주세요.");
 			}
 		}while(chk == true);
 		
-		System.out.print("회원 이름 >>");
+		System.out.print("회원 이름 >> ");
 		String memName = scan.next();
 		
-		System.out.print("회원 전화번호 >>");
+		System.out.print("회원 전화번호 >> ");
 		String memTel = scan.next();
 		
-		scan.nextLine(); //입력버퍼 비우기
-		System.out.print("회원 주소 >>");
+		scan.nextLine(); // 입력버퍼 비우기
+		System.out.print("회원 주소 >> ");
 		String memAddr = scan.nextLine();
 		
 		MemberVO mv = new MemberVO();
@@ -287,19 +280,20 @@ public class MemberMain {
 		mv.setMemAddr(memAddr);
 		
 		int cnt = memService.insertMember(mv);
-			
+		
 		if(cnt > 0) {
 			System.out.println(memId + "회원 추가 작업 성공");
 		}else {
-			System.out.println(memId + "회원 추가 작업 실패");
+			System.out.println(memId + "회원 추가 작업 실패!!!");
 		}
-			
-	
 	}
+	
 
 	public static void main(String[] args) {
-		new MemberMain().start(); 
+		MemberMain memObj = new MemberMain();
+		memObj.start();
 	}
+
 }
 
 
